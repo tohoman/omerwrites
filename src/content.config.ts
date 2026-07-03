@@ -11,7 +11,6 @@ const essays = defineCollection({
         category: z.enum(['Policy & Analysis', 'Personal Essays', 'Academic', 'Creative']),
         tags: z.array(z.string()).default([]),
         prompt: z.string().optional(),
-        wordCount: z.number().optional(),
         featured: z.boolean().default(false),
         draft: z.boolean().default(false),
         crossposted: z.object({

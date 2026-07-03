@@ -6,6 +6,9 @@ const allEssays = await getCollection('essays', ({ data }) => !data.draft);
 const featured = allEssays
   .filter((e) => e.data.featured)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const latest = [...allEssays]
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
 ---
 <Layout title="Home">
   <section style="padding: 2rem 0 3rem;">
@@ -36,5 +39,24 @@ const featured = allEssays
     {featured.length === 0 && (
       <p style="color: var(--color-ink-soft); font-style: italic;">No featured essays yet.</p>
     )}
+  </section>
+
+  <hr class="rule" />
+
+  <section>
+    <p class="eyebrow" style="margin-bottom: 1rem;">latest</p>
+    <ul style="list-style:none; margin:0; padding:0;">
+      {latest.map((essay) => (
+        <li style="display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-rule);">
+          <a href={`/essays/${essay.id}`} class="underline-draw">
+            {essay.data.title}
+            <svg viewBox="0 0 200 8"><path d="M2 5 Q 50 2, 100 5 T 198 4" /></svg>
+          </a>
+          <span class="eyebrow" style="white-space:nowrap;">
+            {essay.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+          </span>
+        </li>
+      ))}
+    </ul>
   </section>
 </Layout>

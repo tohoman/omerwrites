@@ -136,3 +136,43 @@ footer a:hover {
         transition: none;
     }
 }
+
+.reading-meta {
+    color: var(--color-ink-soft);
+}
+
+.prompt-box {
+    margin: 1.5rem 0;
+    padding: 0.9rem 1.1rem;
+    background: var(--color-paper-raised);
+    border-left: 3px solid var(--color-accent);
+}
+
+.prompt-box .eyebrow {
+    display: block;
+    margin-bottom: 0.3em;
+}
+
+.prompt-box p {
+    margin: 0;
+    font-style: italic;
+    color: var(--color-ink-soft);
+}
+
+.share-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.share-row a {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--color-ink-soft);
+}
+
+.share-row a:hover {
+    color: var(--color-accent);
+}

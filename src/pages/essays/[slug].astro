@@ -12,23 +12,50 @@ export async function getStaticPaths() {
 
 const { essay } = Astro.props;
 const { Content } = await render(essay);
+
+const words = essay.body?.trim().replace(/[#*_`>[\]()]/g, '').split(/\s+/).filter(Boolean) ?? [];
+const wordCount = words.length;
+const readingTime = Math.max(1, Math.round(wordCount / 200));
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const shareText = encodeURIComponent(essay.data.title);
+const shareURL = encodeURIComponent(canonicalURL.toString());
 ---
-<Layout title={essay.data.title} description={essay.data.description}>
+<Layout
+  title={essay.data.title}
+  description={essay.data.description}
+  ogType="article"
+  publishDate={essay.data.date}
+  updatedDate={essay.data.updatedDate}
+>
   <article style="padding: 2rem 0;">
     <span class="marginalia">{essay.data.category}</span>
     <h1 style="font-size: 2rem; margin-top: 0.8rem;">{essay.data.title}</h1>
     <p style="font-style: italic; color: var(--color-ink-soft); font-size: 1.05rem; max-width: 60ch;">
       {essay.data.description}
     </p>
-    <p class="eyebrow" style="margin-top: 1rem;">
+    <p class="eyebrow reading-meta" style="margin-top: 1rem;">
       {essay.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-      {essay.data.prompt && <> · {essay.data.prompt}</>}
+      {' · '}{readingTime} min read · {wordCount.toLocaleString('en-US')} words
     </p>
+
+    {essay.data.prompt && (
+      <div class="prompt-box">
+        <span class="eyebrow">prompt</span>
+        <p>{essay.data.prompt}</p>
+      </div>
+    )}
 
     <hr class="rule" />
 
     <div class="prose">
       <Content />
+    </div>
+
+    <div class="share-row">
+      <span class="eyebrow">share</span>
+      <a href={`https://twitter.com/intent/tweet?url=${shareURL}&text=${shareText}`} target="_blank" rel="noopener" aria-label="Share on X">X</a>
+      <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareURL}`} target="_blank" rel="noopener" aria-label="Share on LinkedIn">LinkedIn</a>
     </div>
 
     {essay.data.crossposted && (
