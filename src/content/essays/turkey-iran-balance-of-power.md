@@ -9,21 +9,17 @@ featured: true
 draft: false
 ---
 
-
-
-# **Why Does Turkey Prefer for Iran to Remain a Weak State?**
-
 From a Neorealist balance‑of‑power perspective, Turkey tries to keep Iran from becoming a regional hegemon. The regional competition between Ankara and Tehran is not merely a product of opportunistic maneuvers but a structural imperative; Turkey’s strategic preference for a weakened Iran reflects a desire to consolidate its own regional influence while avoiding both an overpowering Iran and a destabilizing collapse in Iran’s state capacity. The Middle East has recently been the scene of tensions that cannot be underestimated, driven particularly by direct clashes between Iran and Israel and ongoing issues between the United States and Iran. The profound transformation following the collapse of the Bashar al‑Assad regime in Syria in December 2024, and the resulting shift in regional balances, has brought a critical question to the fore: Why does Turkey prefer its neighbor Iran to remain a weak state rather than a powerful one? This article argues that the Republic of Turkey prefers the Islamic Republic of Iran to remain a weakened state with diminished regional prestige rather than a strong, dominant power; it posits that Turkey views the curtailing of Tehran's power as essential to securing its own strategic superiority, cross‑border security, and regional leadership.
 
 
 ---
 
 
-## **Syria: Iran Lost Everything, Turkey Took Over **
+## Syria: Iran Lost Everything, Turkey Took Over
 
 Assad’s fall and Turkey’s rapid move into Syria reflect Ankara’s attempt to convert Iran’s sudden loss of strategic depth into a lasting shift in the regional balance of power in its favor. For a long time, Iran sought to bring Syria under its influence and draw it firmly into the "Axis of Resistance" coalition. When Bashar al‑Assad was overthrown in December 2024, Iran lost the time and money it had invested for years. Turkey, wasting no time, stepped in and replaced Iran as the dominant power.
 
-Brian Katulious, put it bluntly: *"The fall of the Bashar al‑Assad regime in Syria marks the end of the greater Iranian project in the Levant for the foreseeable future."*[^1]* *He noted that Iran had invested a great amount of energy and resources over the past decade to maintain its military presence in Syria, which is a presence that enabled the Islamic Revolutionary Guard Corps (IRGC) to move weapons into Lebanon and the West Bank. The sudden loss of Assad, Brian argued, *"upends the core assumptions and ideas that have long underpinned Iranian strategy in the Middle East."*[^2]* *These underpinned assumptions included the belief that Tehran could permanently maintain a contiguous geopolitical corridor. Stretching from Baghdad to Beirut through Damascus, to project power into the Levant. Iran had implemented its policies based on the notion of relying on proxy networks, such as Hezbollah and various Shiite militia groups. They would be enough to secure regional dominance and counter adversaries without engaging in direct conventional warfare. Assad’s sudden collapse shattered this assumption, revealing that state-level support is irreplaceable and proved that the strategic depth Iran had cultivated over decades could vanish overnight.
+Brian Katulious, put it bluntly: *"The fall of the Bashar al‑Assad regime in Syria marks the end of the greater Iranian project in the Levant for the foreseeable future."*[^1] He noted that Iran had invested a great amount of energy and resources over the past decade to maintain its military presence in Syria, which is a presence that enabled the Islamic Revolutionary Guard Corps (IRGC) to move weapons into Lebanon and the West Bank. The sudden loss of Assad, Brian argued, *"upends the core assumptions and ideas that have long underpinned Iranian strategy in the Middle East."*[^2] These underpinned assumptions included the belief that Tehran could permanently maintain a contiguous geopolitical corridor. Stretching from Baghdad to Beirut through Damascus, to project power into the Levant. Iran had implemented its policies based on the notion of relying on proxy networks, such as Hezbollah and various Shiite militia groups. They would be enough to secure regional dominance and counter adversaries without engaging in direct conventional warfare. Assad’s sudden collapse shattered this assumption, revealing that state-level support is irreplaceable and proved that the strategic depth Iran had cultivated over decades could vanish overnight.
 
  
 
@@ -35,7 +31,7 @@ The Foundation for Defense of Democracies reported that Trump told Erdogan direc
 ---
 
 
-## **The South Caucasus: Turkey Grows, Iran Shrinks**
+## The South Caucasus: Turkey Grows, Iran Shrinks
 
 Turkey and Iran historically have been locked in a competition for influence in the Caucasus, especially over Azerbaijan and Armenia. Turkey’s support for Azerbaijan and Iran’s strategic anxiety over the Zangezur Corridor illustrate competitive balancing behaviour: each side adjusts its alliances and corridors to prevent the other from consolidating regional dominance.
 
@@ -46,7 +42,7 @@ Academic record backs this up. The *Journal of Iran and Central Eurasia Studies*
 More recently, a 2024 article in a Russian international relations journal — *"How Iran Perceives Turkey's Rise in the South Caucasus,"*[^10] by Golmohammadi and Markedonov — examined Iran's growing strategic anxiety over Azerbaijan, noting that *"Turkey and Israel's growing influence in alliance with Azerbaijan"* expanded sharply after 2020. A 2023 CACIANALYST.org analysis goes further, documenting Iran and Russia's disagreements over the Zangezur Corridor and Tehran's mounting concerns over the Turkey–Azerbaijan relationship.
 
 
-## **Iraq: Two Corridors, One Winner**
+## Iraq: Two Corridors, One Winner
 
 Iran’s sanctions‑driven weakness in energy transit reinforces a Neorealist pattern in which Turkey uses economic leverage to lock in favourable relative gains. Turkey and Iran are also in direct competition over political influence in Iraq — and the stakes are massive.
 
@@ -60,7 +56,7 @@ Multiple sources confirm Iran sees this as a direct threat. The Arab Center DC (
 ---
 
 
-## **Energy: Turkey Wants to Be the Hub Iran Cannot Be**
+## Energy: Turkey Wants to Be the Hub Iran Cannot Be
 
 Turkey's strategic goal is to become an energy hub connecting Central Asia, the Middle East, and Europe. Sanctions on Iran — combined with Iran's internal crises and corruption — have created exactly the kind of economic weakness that prevents Iran from competing for that role.
 
@@ -74,13 +70,13 @@ The Orion Policy Institute (2024) confirmed in *"Iran–Turkey Partnership: Ener
 ---
 
 
-## **Turkey's Most Underrated Advantage: Being the Only Broker**
+## Turkey's Most Underrated Advantage: Being the Only Broker
 
 By keeping Iran weak yet functional and reliant on Turkish mediation, Ankara engineers a managed imbalance: Iran cannot overturn the four‑century power parity, but remains too important to be ignored.
 
 Ankara holds unique contacts inside Iran that no other Western‑allied state has. A weakened, sanctioned Iran that cannot build alliances elsewhere makes Turkey irreplaceable as a broker between Tehran and the West.
 
-The Atlantic Council (March 2026) published *"Could Turkey Help Mediate an End to the Iran War?"*[^20] — documenting Turkish Foreign Minister Hakan Fidan's direct outreach to Iranian, Egyptian, EU, and US officials during the 2025–2026 Iran crisis. Ankara's stated goal, the Council noted, is *"regional ownership"*[^21] of security. The Washington Institute for Near East Policy (May 2026), in *"Turkey's Limited Role in the Iran War," * was even more direct: *"Turkey does not want to see a nuclear Iran next door, given that such a development would undoubtedly end the four centuries of power parity between the two states."*
+The Atlantic Council (March 2026) published *"Could Turkey Help Mediate an End to the Iran War?"*[^20] — documenting Turkish Foreign Minister Hakan Fidan's direct outreach to Iranian, Egyptian, EU, and US officials during the 2025–2026 Iran crisis. Ankara's stated goal, the Council noted, is *"regional ownership"*[^21] of security. The Washington Institute for Near East Policy (May 2026), in *"Turkey's Limited Role in the Iran War,"* was even more direct: *"Turkey does not want to see a nuclear Iran next door, given that such a development would undoubtedly end the four centuries of power parity between the two states."*
 
 That last line captures Turkey's position perfectly. Not an Iran that is destroyed. Not an Iran that goes nuclear. An Iran that stays weak, stays stable, and keeps needing Turkey.
 

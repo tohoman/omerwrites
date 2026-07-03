@@ -1,9 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const allEssays = await getCollection('essays', ({ data }) => !data.draft);
-const byCategory = allEssays.reduce((acc, essay) => {
+const byCategory = allEssays.reduce<Record<string, CollectionEntry<'essays'>[]>>((acc, essay) => {
   const cat = essay.data.category;
   acc[cat] = acc[cat] || [];
   acc[cat].push(essay);
@@ -13,12 +13,14 @@ const byCategory = allEssays.reduce((acc, essay) => {
 for (const cat in byCategory) {
   byCategory[cat].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
+
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 ---
 <Layout title="Essays">
   <h1 style="font-size: 1.8rem; margin: 2rem 0 1rem;">Essays</h1>
 
   {Object.entries(byCategory).map(([category, essays]) => (
-    <section style="margin-bottom: 2.5rem;">
+    <section id={slugify(category)} style="margin-bottom: 2.5rem; scroll-margin-top: 1.5rem;">
       <p class="eyebrow" style="margin-bottom: 0.8rem;">{category}</p>
       <ul style="list-style:none; margin:0; padding:0;">
         {essays.map((essay) => (

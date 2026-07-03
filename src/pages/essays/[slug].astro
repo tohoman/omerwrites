@@ -37,14 +37,10 @@ const shareURL = encodeURIComponent(canonicalURL.toString());
     <p class="eyebrow reading-meta" style="margin-top: 1rem;">
       {essay.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
       {' · '}{readingTime} min read · {wordCount.toLocaleString('en-US')} words
+      {essay.data.prompt && (
+        <span class="prompt-badge">prompt: {essay.data.prompt}</span>
+      )}
     </p>
-
-    {essay.data.prompt && (
-      <div class="prompt-box">
-        <span class="eyebrow">prompt</span>
-        <p>{essay.data.prompt}</p>
-      </div>
-    )}
 
     <hr class="rule" />
 

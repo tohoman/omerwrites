@@ -114,6 +114,61 @@ h3 {
     font-size: 1.4rem;
 }
 
+.prose hr {
+    border: none;
+    border-top: 1px solid var(--color-rule);
+    margin: 2.2em auto;
+    width: 40%;
+}
+
+.prose em {
+    font-style: italic;
+}
+
+.prose strong {
+    font-weight: 600;
+}
+
+.prose sup {
+    font-size: 0.68em;
+    margin-left: 0.05em;
+}
+
+.prose sup a[data-footnote-ref] {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.prose section[data-footnotes] {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-rule);
+    font-size: 0.85rem;
+    color: var(--color-ink-soft);
+}
+
+.prose section[data-footnotes] h2 {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.8em;
+}
+
+.prose section[data-footnotes] ol {
+    padding-left: 1.2em;
+}
+
+.prose section[data-footnotes] li {
+    margin-bottom: 0.6em;
+}
+
+.prose section[data-footnotes] a[data-footnote-backref] {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
 a {
     color: inherit;
 }
@@ -131,6 +186,39 @@ footer a:hover {
     color: var(--color-accent);
 }
 
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-paper);
+    border-bottom: 1px solid transparent;
+}
+
+.nav-categories {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--color-rule);
+}
+
+.nav-categories a {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+    .nav-categories {
+        display: none;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .underline-draw path {
         transition: none;
@@ -141,22 +229,14 @@ footer a:hover {
     color: var(--color-ink-soft);
 }
 
-.prompt-box {
-    margin: 1.5rem 0;
-    padding: 0.9rem 1.1rem;
+.prompt-badge {
+    display: inline-block;
+    margin-left: 0.6em;
+    padding: 0.1em 0.5em;
     background: var(--color-paper-raised);
-    border-left: 3px solid var(--color-accent);
-}
-
-.prompt-box .eyebrow {
-    display: block;
-    margin-bottom: 0.3em;
-}
-
-.prompt-box p {
-    margin: 0;
+    border-radius: 2px;
+    text-transform: none;
     font-style: italic;
-    color: var(--color-ink-soft);
 }
 
 .share-row {

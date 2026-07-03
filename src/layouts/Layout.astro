@@ -47,7 +47,7 @@ const pageTitle = `${title} · Ömer Writes`;
   <meta name="twitter:description" content={description} />
 </head>
 <body>
-  <header class="container" style="padding-top: 2rem; padding-bottom: 1rem; display:flex; justify-content:space-between; align-items:center;">
+  <header class="site-header container">
     <a href="/" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none;">
       <svg viewBox="0 0 40 40" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 4 L30 16 L20 34 L10 16 Z" fill="none" stroke="#1C1F1D" stroke-width="1.6" stroke-linejoin="round"/>
@@ -57,8 +57,14 @@ const pageTitle = `${title} · Ömer Writes`;
       </svg>
       <span style="font-family: var(--font-mono); font-weight:500; color: var(--color-ink); letter-spacing:0.02em;">omerwrites</span>
     </a>
-    <nav style="display:flex; gap:1.5rem;">
+    <nav style="display:flex; align-items:center; gap:1.5rem;">
       <a href="/essays">Essays</a>
+      <span class="nav-categories">
+        <a href="/essays#policy-analysis">Policy</a>
+        <a href="/essays#personal-essays">Personal</a>
+        <a href="/essays#academic">Academic</a>
+        <a href="/essays#creative">Creative</a>
+      </span>
       <a href="/about">About</a>
       <a href="/links">Links</a>
     </nav>
