@@ -1,0 +1,138 @@
+:root {
+    --color-paper: #E9E8E2;
+    --color-paper-raised: #F3F2ED;
+    --color-ink: #1C1F1D;
+    --color-ink-soft: #55584F;
+    --color-accent: #A8342A;
+    --color-rule: #C9C4B4;
+
+    --font-display: 'Newsreader', Georgia, serif;
+    --font-body: 'Newsreader', Georgia, serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+    --measure: 66ch;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--color-paper);
+}
+
+body {
+    margin: 0;
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 0.5em;
+}
+
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+}
+
+/* marjin notu — kategori etiketi */
+.marginalia {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    transform: rotate(-2deg);
+    border: 1px solid var(--color-accent);
+    padding: 0.15em 0.5em;
+    border-radius: 2px;
+}
+
+/* imza öğesi — el yazısı alt çizgi, hover'da belirir */
+.underline-draw {
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+.underline-draw svg {
+    position: absolute;
+    left: 0;
+    bottom: -0.15em;
+    width: 100%;
+    height: 8px;
+    overflow: visible;
+}
+
+.underline-draw path {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+    transition: stroke-dashoffset 0.35s ease;
+}
+
+.underline-draw:hover path {
+    stroke-dashoffset: 0;
+}
+
+.rule {
+    border: none;
+    border-top: 1px solid var(--color-rule);
+    margin: 2rem 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.prose {
+    max-width: var(--measure);
+}
+
+.prose p {
+    margin: 0 0 1.3em;
+}
+
+.prose h2 {
+    margin-top: 2em;
+    font-size: 1.4rem;
+}
+
+a {
+    color: inherit;
+}
+
+nav a,
+footer a {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--color-ink-soft);
+}
+
+nav a:hover,
+footer a:hover {
+    color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .underline-draw path {
+        transition: none;
+    }
+}

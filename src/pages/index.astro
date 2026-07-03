@@ -1,11 +1,40 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const allEssays = await getCollection('essays', ({ data }) => !data.draft);
+const featured = allEssays
+  .filter((e) => e.data.featured)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
+<Layout title="Home">
+  <section style="padding: 2rem 0 3rem;">
+    <p class="eyebrow">writing portfolio</p>
+    <h1 style="font-size: 2.4rem; max-width: 16ch;">
+      Thought put to paper, paper put <em style="font-style: italic;">into the world.</em>
+    </h1>
+  </section>
 
-<Layout>
-	<Welcome />
+  <hr class="rule" />
+
+  <section>
+    <p class="eyebrow" style="margin-bottom: 1rem;">featured</p>
+    <ul style="list-style:none; margin:0; padding:0;">
+      {featured.map((essay) => (
+        <li style="margin-bottom: 1.75rem;">
+          <a href={`/essays/${essay.id}`} class="underline-draw" style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 500;">
+            {essay.data.title}
+            <svg viewBox="0 0 200 8"><path d="M2 5 Q 50 2, 100 5 T 198 4" /></svg>
+          </a>
+          <p style="margin: 0.3rem 0 0; color: var(--color-ink-soft); font-size: 0.95rem;">
+            {essay.data.description}
+          </p>
+          <span class="marginalia" style="margin-top:0.5rem;">{essay.data.category}</span>
+        </li>
+      ))}
+    </ul>
+    {featured.length === 0 && (
+      <p style="color: var(--color-ink-soft); font-style: italic;">No featured essays yet.</p>
+    )}
+  </section>
 </Layout>

@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const essays = await getCollection('essays', ({ data }) => !data.draft);
+  return essays.map((essay) => ({
+    params: { slug: essay.id },
+    props: { essay },
+  }));
+}
+
+const { essay } = Astro.props;
+const { Content } = await render(essay);
+---
+<Layout title={essay.data.title} description={essay.data.description}>
+  <article style="padding: 2rem 0;">
+    <span class="marginalia">{essay.data.category}</span>
+    <h1 style="font-size: 2rem; margin-top: 0.8rem;">{essay.data.title}</h1>
+    <p style="font-style: italic; color: var(--color-ink-soft); font-size: 1.05rem; max-width: 60ch;">
+      {essay.data.description}
+    </p>
+    <p class="eyebrow" style="margin-top: 1rem;">
+      {essay.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      {essay.data.prompt && <> · {essay.data.prompt}</>}
+    </p>
+
+    <hr class="rule" />
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {essay.data.crossposted && (
+      <>
+        <hr class="rule" />
+        <p class="eyebrow" style="margin-bottom: 0.5rem;">also published on</p>
+        <div style="display:flex; gap:1.2rem;">
+          {essay.data.crossposted.medium && <a href={essay.data.crossposted.medium} target="_blank">Medium</a>}
+          {essay.data.crossposted.substack && <a href={essay.data.crossposted.substack} target="_blank">Substack</a>}
+          {essay.data.crossposted.x && <a href={essay.data.crossposted.x} target="_blank">X</a>}
+        </div>
+      </>
+    )}
+  </article>
+</Layout>

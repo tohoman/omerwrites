@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allEssays = await getCollection('essays', ({ data }) => !data.draft);
+const byCategory = allEssays.reduce((acc, essay) => {
+  const cat = essay.data.category;
+  acc[cat] = acc[cat] || [];
+  acc[cat].push(essay);
+  return acc;
+}, {});
+
+for (const cat in byCategory) {
+  byCategory[cat].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+}
+---
+<Layout title="Essays">
+  <h1 style="font-size: 1.8rem; margin: 2rem 0 1rem;">Essays</h1>
+
+  {Object.entries(byCategory).map(([category, essays]) => (
+    <section style="margin-bottom: 2.5rem;">
+      <p class="eyebrow" style="margin-bottom: 0.8rem;">{category}</p>
+      <ul style="list-style:none; margin:0; padding:0;">
+        {essays.map((essay) => (
+          <li style="display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--color-rule);">
+            <a href={`/essays/${essay.id}`} class="underline-draw" style="font-family: var(--font-display); font-size: 1.1rem;">
+              {essay.data.title}
+              <svg viewBox="0 0 200 8"><path d="M2 5 Q 50 2, 100 5 T 198 4" /></svg>
+            </a>
+            <span class="eyebrow" style="white-space:nowrap;">
+              {essay.data.date.toLocaleDateString('tr-TR', { year: 'numeric', month: 'short' })}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</Layout>
