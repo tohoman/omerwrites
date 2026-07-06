@@ -2,7 +2,9 @@
 title: "Why Does Turkey Prefer for Iran to Remain a Weak State?"
 description: "A neorealist analysis of Turkey's regional strategy toward a weakened Iran, examining Syria, the South Caucasus, Iraq, and energy competition."
 date: 2026-07-02
-category: "Policy & Analysis"
+topic: "Geopolitics"
+kind: "Policy Analysis"
+journey: "the-turkey-axis"
 tags: ["geopolitics", "Turkey", "Iran", "Middle East", "neorealism", "foreign policy"]
 prompt: "Independent research essay"
 featured: true

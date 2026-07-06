@@ -2,82 +2,189 @@
 export interface Props {
   title: string;
   description?: string;
-  ogType?: 'website' | 'article';
+  ogType?: "website" | "article";
   publishDate?: Date;
   updatedDate?: Date;
+  structuredData?: Record<string, unknown>;
 }
 const {
   title,
   description = "Ömer's writing portfolio — essays, analysis, and academic work.",
-  ogType = 'website',
+  ogType = "website",
   publishDate,
   updatedDate,
+  structuredData,
 } = Astro.props;
-import '../styles/global.css';
+import "../styles/global.css";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const pageTitle = `${title} · Ömer Writes`;
+const pageTitle = `${title} · omerwrites`;
+
+// Add real profile URLs here once they exist — footer renders nothing until then.
+const socialLinks: { label: string; href: string }[] = [];
 ---
+
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{pageTitle}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonicalURL} />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="omerwrites" />
+    {
+      ogType === "article" && publishDate && (
+        <meta
+          property="article:published_time"
+          content={publishDate.toISOString()}
+        />
+      )
+    }
+    {
+      ogType === "article" && updatedDate && (
+        <meta
+          property="article:modified_time"
+          content={updatedDate.toISOString()}
+        />
+      )
+    }
 
-  <meta property="og:type" content={ogType} />
-  <meta property="og:title" content={pageTitle} />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content={canonicalURL} />
-  <meta property="og:site_name" content="Ömer Writes" />
-  {ogType === 'article' && publishDate && (
-    <meta property="article:published_time" content={publishDate.toISOString()} />
-  )}
-  {ogType === 'article' && updatedDate && (
-    <meta property="article:modified_time" content={updatedDate.toISOString()} />
-  )}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
 
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content={pageTitle} />
-  <meta name="twitter:description" content={description} />
-</head>
-<body>
-  <header class="site-header container">
-    <a href="/" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none;">
-      <svg viewBox="0 0 40 40" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 4 L30 16 L20 34 L10 16 Z" fill="none" stroke="#1C1F1D" stroke-width="1.6" stroke-linejoin="round"/>
-        <line x1="20" y1="16" x2="20" y2="30" stroke="#1C1F1D" stroke-width="1.6"/>
-        <circle cx="20" cy="16" r="1.4" fill="#1C1F1D"/>
-        <path d="M17 36 Q20 39 23 36 Q20 34.5 17 36 Z" fill="#A8342A"/>
-      </svg>
-      <span style="font-family: var(--font-mono); font-weight:500; color: var(--color-ink); letter-spacing:0.02em;">omerwrites</span>
-    </a>
-    <nav style="display:flex; align-items:center; gap:1.5rem;">
-      <a href="/essays">Essays</a>
-      <span class="nav-categories">
-        <a href="/essays#policy-analysis">Policy</a>
-        <a href="/essays#personal-essays">Personal</a>
-        <a href="/essays#academic">Academic</a>
-        <a href="/essays#creative">Creative</a>
-      </span>
-      <a href="/about">About</a>
-      <a href="/links">Links</a>
-    </nav>
-  </header>
+    {
+      structuredData && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={JSON.stringify(structuredData)}
+        />
+      )
+    }
+  </head>
+  <body>
+    <header class="site-header container">
+      <a href="/" class="wordmark" aria-label="omerwrites home">
+        <svg
+          class="wordmark-icon"
+          viewBox="0 0 30 30"
+          width="20"
+          height="20"
+          xmlns="http://www.w3.org/2000/svg"
+          style="overflow: visible;"
+        >
+          <path
+            d="M 10 25 L 18 10 L 14 4 L 6 4 L 2 10 Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"></path>
+          <line
+            x1="10"
+            y1="25"
+            x2="10"
+            y2="12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <circle cx="10" cy="11" r="1.3" fill="currentColor"></circle>
+        </svg>
+        <span class="wordmark-text">omerwrites</span>
+      </a>
+      <nav>
+        <div class="nav-item">
+          <a href="/essays" class="nav-link">Essays</a>
+          <div class="dropdown">
+            <a href="/essays?topic=geopolitics">Geopolitics</a>
+            <a href="/essays?topic=energy-economy">Energy & Economy</a>
+            <a href="/essays?topic=identity-faith">Identity & Faith</a>
+            <a href="/essays?topic=technology">Technology</a>
+          </div>
+        </div>
+        <a href="/about" class="nav-link">About</a>
+      </nav>
+    </header>
 
-  <main class="container" style="padding-bottom: 4rem;">
-    <slot />
-  </main>
+    <main class="container" style="padding-bottom: 4rem;">
+      <slot />
+    </main>
 
-  <footer class="container" style="padding: 2rem 1.5rem; border-top: 1px solid var(--color-rule); display:flex; gap:1.5rem;">
-    <a href="https://x.com/" target="_blank">X</a>
-    <a href="https://medium.com/" target="_blank">Medium</a>
-    <a href="https://substack.com/" target="_blank">Substack</a>
-  </footer>
-</body>
+    <div class="newsletter container">
+      <p class="eyebrow">subscribe to the newsletter</p>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="newsletter-note" id="newsletter-note" hidden>Thanks — sign-ups are coming soon.</p>
+    </div>
+
+    <script>
+      const form = document.getElementById('newsletter-form');
+      const note = document.getElementById('newsletter-note');
+      form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        form.setAttribute('hidden', '');
+        note?.removeAttribute('hidden');
+      });
+    </script>
+
+    <footer class="container site-footer">
+      <a href="/" class="colophon" aria-label="omerwrites home">
+        <svg
+          viewBox="0 0 30 30"
+          width="16"
+          height="16"
+          xmlns="http://www.w3.org/2000/svg"
+          style="overflow: visible;"
+        >
+          <path
+            d="M 10 25 L 18 10 L 14 4 L 6 4 L 2 10 Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"></path>
+          <line
+            x1="10"
+            y1="25"
+            x2="10"
+            y2="12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <circle cx="10" cy="11" r="1.3" fill="currentColor"></circle>
+        </svg>
+        <span>omerwrites</span>
+      </a>
+      {
+        socialLinks.length > 0 && (
+          <div class="footer-links">
+            {socialLinks.map((link) => (
+              <a href={link.href} target="_blank" rel="noopener">
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+      <span class="eyebrow footer-year">{new Date().getFullYear()}</span>
+    </footer>
+  </body>
 </html>

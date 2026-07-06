@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EssayCard from '../../components/EssayCard.astro';
+import { getCollection } from 'astro:content';
+import { JOURNEYS } from '../../data/taxonomy';
+
+export async function getStaticPaths() {
+  return JOURNEYS.map((journey) => ({ params: { slug: journey.slug }, props: { journey } }));
+}
+
+const { journey } = Astro.props;
+const essays = (await getCollection('essays', ({ data }) => !data.draft && data.journey === journey.slug))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Layout title={journey.title} description={journey.dek}>
+  <section style="padding: 2rem 0 0.5rem;">
+    <p class="eyebrow">journey</p>
+    <h1 style="font-size: 2rem; margin-top: 0.4rem;">{journey.title}</h1>
+    <p style="font-style: italic; color: var(--color-ink-soft); max-width: 56ch;">{journey.dek}</p>
+  </section>
+
+  <hr class="rule" />
+
+  {essays.length > 0 ? (
+    <div class="gallery gallery--secondary">
+      {essays.map((essay, i) => <EssayCard essay={essay} variant={i === 0 ? 'featured' : 'secondary'} />)}
+    </div>
+  ) : (
+    <p style="color: var(--color-ink-soft); font-style: italic;">The first essay in this arc is forthcoming.</p>
+  )}
+</Layout>

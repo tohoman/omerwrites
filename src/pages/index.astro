@@ -1,62 +1,66 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import EssayCard from '../components/EssayCard.astro';
 import { getCollection } from 'astro:content';
+import { JOURNEYS } from '../data/taxonomy';
 
 const allEssays = await getCollection('essays', ({ data }) => !data.draft);
-const featured = allEssays
-  .filter((e) => e.data.featured)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const latest = [...allEssays]
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 5);
+const sorted = [...allEssays].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const featured = sorted.filter((e) => e.data.featured);
+const featuredIds = new Set(featured.map((e) => e.id));
+const secondary = sorted.filter((e) => !featuredIds.has(e.id)).slice(0, 6);
+
+const journeyCount = (slug: string) => sorted.filter((e) => e.data.journey === slug).length;
+const activeJourneys = JOURNEYS.filter((j) => journeyCount(j.slug) > 0);
 ---
 <Layout title="Home">
-  <section style="padding: 2rem 0 3rem;">
-    <p class="eyebrow">writing portfolio</p>
-    <h1 style="font-size: 2.4rem; max-width: 16ch;">
-      Thought put to paper, paper put <em style="font-style: italic;">into the world.</em>
-    </h1>
+  <section style="padding: 1.25rem 0 1.5rem;">
+    <p class="eyebrow" style="margin-bottom: 0.4rem;">writing portfolio</p>
+    <p style="font-family: var(--font-display); font-style: italic; font-size: 1.2rem; max-width: 48ch; margin: 0; color: var(--color-ink-soft);">
+      I write about how geopolitics, economics, and faith fit together.
+    </p>
   </section>
 
   <hr class="rule" />
 
   <section>
-    <p class="eyebrow" style="margin-bottom: 1rem;">featured</p>
-    <ul style="list-style:none; margin:0; padding:0;">
-      {featured.map((essay) => (
-        <li style="margin-bottom: 1.75rem;">
-          <a href={`/essays/${essay.id}`} class="underline-draw" style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 500;">
-            {essay.data.title}
-            <svg viewBox="0 0 200 8"><path d="M2 5 Q 50 2, 100 5 T 198 4" /></svg>
-          </a>
-          <p style="margin: 0.3rem 0 0; color: var(--color-ink-soft); font-size: 0.95rem;">
-            {essay.data.description}
-          </p>
-          <span class="marginalia" style="margin-top:0.5rem;">{essay.data.category}</span>
-        </li>
-      ))}
-    </ul>
+    <p class="eyebrow" style="margin-bottom: 1.2rem;">featured analysis</p>
+    <div class="gallery">
+      {featured.map((essay) => <EssayCard essay={essay} variant="featured" />)}
+    </div>
     {featured.length === 0 && (
       <p style="color: var(--color-ink-soft); font-style: italic;">No featured essays yet.</p>
     )}
   </section>
 
-  <hr class="rule" />
+  {activeJourneys.length > 0 && (
+    <>
+      <hr class="rule" />
+      <section>
+        <p class="eyebrow" style="margin-bottom: 1.2rem;">journeys — thematic arcs</p>
+        <div class="journey-strip">
+          {activeJourneys.map((j) => (
+            <a href={`/journeys/${j.slug}`} class="journey-card">
+              <h3>{j.title}</h3>
+              <p>{j.dek}</p>
+              <span class="journey-count">{journeyCount(j.slug)} essay{journeyCount(j.slug) === 1 ? '' : 's'} →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </>
+  )}
 
-  <section>
-    <p class="eyebrow" style="margin-bottom: 1rem;">latest</p>
-    <ul style="list-style:none; margin:0; padding:0;">
-      {latest.map((essay) => (
-        <li style="display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-rule);">
-          <a href={`/essays/${essay.id}`} class="underline-draw">
-            {essay.data.title}
-            <svg viewBox="0 0 200 8"><path d="M2 5 Q 50 2, 100 5 T 198 4" /></svg>
-          </a>
-          <span class="eyebrow" style="white-space:nowrap;">
-            {essay.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
-          </span>
-        </li>
-      ))}
-    </ul>
-  </section>
+  {secondary.length > 0 && (
+    <>
+      <hr class="rule" />
+      <section>
+        <p class="eyebrow" style="margin-bottom: 1.2rem;">recent essays</p>
+        <div class="gallery gallery--secondary">
+          {secondary.map((essay) => <EssayCard essay={essay} variant="secondary" />)}
+        </div>
+      </section>
+    </>
+  )}
 </Layout>

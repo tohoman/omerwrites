@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Ömer Taha Türkmen',
+  description: 'Student writing about geopolitics, economics, and faith.',
+  url: new URL('/about', Astro.site).toString(),
+};
+---
+
+<Layout
+  title="About"
+  description="About Ömer Taha Türkmen, a student writing about geopolitics, economics, and faith."
+  structuredData={structuredData}
+>
+  <section class="prose" style="padding: 2rem 0 3rem;">
+    <p class="eyebrow">about</p>
+    <h1>About</h1>
+
+    <p>
+      I’m Omer Taha Turkmen, a high school student in Lynnfield, Massachusetts. I
+      write about how geopolitics, economics, and faith fit together — not because I
+      have figured them out, but because I am trying to.
+    </p>
+
+    <p>
+      I spent the first fourteen years of my life in Turkey. Moving to the United States
+      at fourteen was the kind of change that makes you see everything twice: once from
+      where you came from, and once from where you are now. That double view is where
+      most of my questions come from.
+    </p>
+
+    <p>
+      My interest in this world started earlier than I can fully explain. In fifth grade,
+      I sat through a Model UN conference in Antalya, and something about it stuck. I kept
+      reading history on my own long after any assignment asked me to. When my father
+      pointed me toward International Relations, the pieces I had been collecting finally
+      had a name.
+    </p>
+
+    <p>
+      Most of what I write lives at the intersection of politics, religion, and economics:
+      how belief shapes power, how a single economic decision quietly reaches ordinary
+      people, and how a country’s choices can shape lives for decades. As a Muslim, my
+      faith is the ground I stand on. It keeps me from treating statecraft as only a
+      contest of power and reminds me to ask where justice and human dignity belong in
+      the equation.
+    </p>
+
+    <p>
+      I’m still a student, and these essays are me working things out in public. I will
+      get some of it wrong. But if you care about international law, politics, or simply
+      making sense of a world that will not sit still, I’m glad you are here.
+    </p>
+
+    <p class="colophon-signature">
+      <span class="signature-script">omerwrites</span>
+      <span>— Ömer Taha Türkmen</span>
+    </p>
+  </section>
+</Layout>

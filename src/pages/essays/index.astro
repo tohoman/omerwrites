@@ -1,40 +1,77 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import EssayCard from '../../components/EssayCard.astro';
+import { getCollection } from 'astro:content';
+import { TOPICS, KINDS, kindSlug } from '../../data/taxonomy';
 
 const allEssays = await getCollection('essays', ({ data }) => !data.draft);
-const byCategory = allEssays.reduce<Record<string, CollectionEntry<'essays'>[]>>((acc, essay) => {
-  const cat = essay.data.category;
-  acc[cat] = acc[cat] || [];
-  acc[cat].push(essay);
-  return acc;
-}, {});
-
-for (const cat in byCategory) {
-  byCategory[cat].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-}
-
-const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const sorted = [...allEssays].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
-<Layout title="Essays">
+<Layout title="Essays" description="All essays — geopolitics, energy and economy, identity and faith, technology.">
   <h1 style="font-size: 1.8rem; margin: 2rem 0 1rem;">Essays</h1>
 
-  {Object.entries(byCategory).map(([category, essays]) => (
-    <section id={slugify(category)} style="margin-bottom: 2.5rem; scroll-margin-top: 1.5rem;">
-      <p class="eyebrow" style="margin-bottom: 0.8rem;">{category}</p>
-      <ul style="list-style:none; margin:0; padding:0;">
-        {essays.map((essay) => (
-          <li style="display:flex; justify-content:space-between; align-items:baseline; gap:1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--color-rule);">
-            <a href={`/essays/${essay.id}`} class="underline-draw" style="font-family: var(--font-display); font-size: 1.1rem;">
-              {essay.data.title}
-              <svg viewBox="0 0 200 8"><path d="M2 5 Q 50 2, 100 5 T 198 4" /></svg>
-            </a>
-            <span class="eyebrow" style="white-space:nowrap;">
-              {essay.data.date.toLocaleDateString('tr-TR', { year: 'numeric', month: 'short' })}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </section>
-  ))}
+  <div class="filter-bar" id="filter-bar">
+    <div class="filter-group" data-filter-group="topic">
+      <span class="filter-label">topic</span>
+      <button class="filter-btn is-active" data-filter="all">All</button>
+      {TOPICS.map((t) => (
+        <button class="filter-btn" data-filter={t.slug}>{t.label}</button>
+      ))}
+    </div>
+    <div class="filter-group" data-filter-group="kind">
+      <span class="filter-label">type</span>
+      <button class="filter-btn is-active" data-filter="all">All</button>
+      {KINDS.map((k) => (
+        <button class="filter-btn" data-filter={kindSlug(k)}>{k}</button>
+      ))}
+    </div>
+  </div>
+
+  <div class="gallery gallery--secondary" id="essay-grid" style="margin-top: 1.8rem;">
+    {sorted.map((essay) => <EssayCard essay={essay} variant="secondary" />)}
+  </div>
+  <p id="no-results" class="more-note" hidden style="color: var(--color-ink-soft); font-style: italic; margin-top: 1.5rem;">
+    Nothing here yet — more essays are on the way.
+  </p>
+
+  <script>
+    const state: Record<string, string> = { topic: 'all', kind: 'all' };
+    const bar = document.getElementById('filter-bar')!;
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('#essay-grid .card'));
+    const empty = document.getElementById('no-results')!;
+
+    function apply() {
+      let visible = 0;
+      for (const card of cards) {
+        const show =
+          (state.topic === 'all' || card.dataset.topic === state.topic) &&
+          (state.kind === 'all' || card.dataset.kind === state.kind);
+        card.toggleAttribute('hidden', !show);
+        if (show) visible++;
+      }
+      empty.toggleAttribute('hidden', visible > 0);
+    }
+
+    bar.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>('.filter-btn');
+      if (!btn) return;
+      const group = btn.closest<HTMLElement>('.filter-group')!;
+      state[group.dataset.filterGroup!] = btn.dataset.filter!;
+      group.querySelectorAll('.filter-btn').forEach((b) => b.classList.toggle('is-active', b === btn));
+      apply();
+    });
+
+    // /essays?topic=geopolitics gibi derin bağlantıları destekle
+    const params = new URLSearchParams(location.search);
+    for (const key of ['topic', 'kind'] as const) {
+      const val = params.get(key);
+      if (!val) continue;
+      const btn = bar.querySelector<HTMLElement>(`[data-filter-group="${key}"] [data-filter="${val}"]`);
+      if (btn) {
+        state[key] = val;
+        btn.closest('.filter-group')!.querySelectorAll('.filter-btn').forEach((b) => b.classList.toggle('is-active', b === btn));
+      }
+    }
+    apply();
+  </script>
 </Layout>

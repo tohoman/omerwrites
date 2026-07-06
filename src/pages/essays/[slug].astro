@@ -11,7 +11,10 @@ export async function getStaticPaths() {
 }
 
 const { essay } = Astro.props;
-const { Content } = await render(essay);
+const { Content, headings } = await render(essay);
+// Exclude the sr-only "Footnotes" landmark heading that markdown footnote
+// processing injects automatically — it's not a real content section.
+const toc = headings.filter((h) => h.depth === 2 && h.slug !== 'footnote-label');
 
 const words = essay.body?.trim().replace(/[#*_`>[\]()]/g, '').split(/\s+/).filter(Boolean) ?? [];
 const wordCount = words.length;
@@ -20,6 +23,20 @@ const readingTime = Math.max(1, Math.round(wordCount / 200));
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const shareText = encodeURIComponent(essay.data.title);
 const shareURL = encodeURIComponent(canonicalURL.toString());
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: essay.data.title,
+  description: essay.data.description,
+  datePublished: essay.data.date.toISOString(),
+  ...(essay.data.updatedDate && { dateModified: essay.data.updatedDate.toISOString() }),
+  author: {
+    '@type': 'Person',
+    name: 'Ömer Taha Türkmen',
+  },
+  url: canonicalURL.toString(),
+};
 ---
 <Layout
   title={essay.data.title}
@@ -27,15 +44,18 @@ const shareURL = encodeURIComponent(canonicalURL.toString());
   ogType="article"
   publishDate={essay.data.date}
   updatedDate={essay.data.updatedDate}
+  structuredData={structuredData}
 >
   <article style="padding: 2rem 0;">
-    <span class="marginalia">{essay.data.category}</span>
+    <span class="marginalia">{essay.data.topic}</span>
+    <span class="eyebrow" style="margin-left: 0.8rem;">{essay.data.kind}</span>
     <h1 style="font-size: 2rem; margin-top: 0.8rem;">{essay.data.title}</h1>
     <p style="font-style: italic; color: var(--color-ink-soft); font-size: 1.05rem; max-width: 60ch;">
       {essay.data.description}
     </p>
     <p class="eyebrow reading-meta" style="margin-top: 1rem;">
-      {essay.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      By Ömer Taha Türkmen
+      {' · '}{essay.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
       {' · '}{readingTime} min read · {wordCount.toLocaleString('en-US')} words
       {essay.data.prompt && (
         <span class="prompt-badge">prompt: {essay.data.prompt}</span>
@@ -43,6 +63,17 @@ const shareURL = encodeURIComponent(canonicalURL.toString());
     </p>
 
     <hr class="rule" />
+
+    {toc.length > 1 && (
+      <nav class="toc" aria-label="Table of contents">
+        <p class="eyebrow">in this piece</p>
+        <ol>
+          {toc.map((heading) => (
+            <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+          ))}
+        </ol>
+      </nav>
+    )}
 
     <div class="prose">
       <Content />
