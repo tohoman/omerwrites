@@ -427,6 +427,27 @@ footer a:hover {
     margin-left: auto;
 }
 
+.essay-hero {
+    margin: 1.8rem 0 2.2rem;
+}
+
+.essay-hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-rule);
+    filter: sepia(0.15) saturate(1.05) contrast(1.02);
+}
+
+.essay-hero-caption {
+    margin-top: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-style: italic;
+    color: var(--color-ink-soft);
+    letter-spacing: 0.01em;
+}
+
 .toc {
     margin: 1.5rem 0 2rem;
     padding: 1rem 1.2rem;
@@ -569,9 +590,40 @@ footer a:hover {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 1.4rem 1.5rem 1.2rem;
     text-decoration: none;
     color: var(--color-ink);
+}
+
+.card-media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-rule);
+    background: var(--color-paper);
+}
+
+.card--featured .card-media {
+    aspect-ratio: 16 / 10;
+}
+
+.card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.18) saturate(1.05) contrast(1.02);
+    transition: transform 0.4s ease, filter 0.25s ease;
+}
+
+.card:hover .card-media img {
+    transform: scale(1.035);
+    filter: sepia(0.06) saturate(1.05) contrast(1.02);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.4rem 1.5rem 1.2rem;
 }
 
 .card-meta {

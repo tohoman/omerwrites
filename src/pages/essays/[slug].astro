@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   const essays = await getCollection('essays', ({ data }) => !data.draft);
@@ -63,6 +64,21 @@ const structuredData = {
     </p>
 
     <hr class="rule" />
+
+    {essay.data.image && (
+      <figure class="essay-hero">
+        <Image
+          src={essay.data.image}
+          alt={essay.data.imageAlt ?? ''}
+          width={1400}
+          widths={[700, 1000, 1400]}
+          sizes="(min-width: 900px) 900px, 100vw"
+        />
+        {essay.data.imageCaption && (
+          <figcaption class="essay-hero-caption">{essay.data.imageCaption}</figcaption>
+        )}
+      </figure>
+    )}
 
     {toc.length > 1 && (
       <nav class="toc" aria-label="Table of contents">

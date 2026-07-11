@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import { topicSlug, kindSlug } from '../data/taxonomy';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const { essay, variant = 'secondary' } = Astro.props;
-const { title, description, date, topic, kind } = essay.data;
+const { title, description, date, topic, kind, image, imageAlt } = essay.data;
 const dateLabel = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
 ---
 
@@ -18,12 +19,26 @@ const dateLabel = date.toLocaleDateString('en-US', { year: 'numeric', month: 'sh
   data-kind={kindSlug(kind)}
 >
   <a href={`/essays/${essay.id}`} class="card-link">
-    <p class="card-meta">
-      <span class="card-topic">{topic}</span>
-      <span class="card-kind">{kind}</span>
-    </p>
-    {variant === 'featured' ? <h2 class="card-title">{title}</h2> : <h3 class="card-title">{title}</h3>}
-    {variant === 'featured' && <p class="card-dek">{description}</p>}
-    <p class="card-foot">{dateLabel}</p>
+    {image && (
+      <div class="card-media">
+        <Image
+          src={image}
+          alt={imageAlt ?? ''}
+          width={variant === 'featured' ? 900 : 500}
+          height={variant === 'featured' ? 500 : 320}
+          widths={variant === 'featured' ? [450, 900] : [250, 500]}
+          sizes={variant === 'featured' ? '(min-width: 860px) 45vw, 90vw' : '(min-width: 860px) 30vw, 90vw'}
+        />
+      </div>
+    )}
+    <div class="card-body">
+      <p class="card-meta">
+        <span class="card-topic">{topic}</span>
+        <span class="card-kind">{kind}</span>
+      </p>
+      {variant === 'featured' ? <h2 class="card-title">{title}</h2> : <h3 class="card-title">{title}</h3>}
+      {variant === 'featured' && <p class="card-dek">{description}</p>}
+      <p class="card-foot">{dateLabel}</p>
+    </div>
   </a>
 </article>

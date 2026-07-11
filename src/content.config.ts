@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 
 const essays = defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/essays' }),
-    schema: z.object({
+    schema: ({ image }) => z.object({
         title: z.string(),
         description: z.string(),
         date: z.coerce.date(),
@@ -15,6 +15,9 @@ const essays = defineCollection({
         prompt: z.string().optional(),
         featured: z.boolean().default(false),
         draft: z.boolean().default(false),
+        image: image().optional(),
+        imageAlt: z.string().optional(),
+        imageCaption: z.string().optional(),
         crossposted: z.object({
             medium: z.string().optional(),
             substack: z.string().optional(),
